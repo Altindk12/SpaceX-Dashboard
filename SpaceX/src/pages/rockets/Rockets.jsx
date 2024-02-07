@@ -1,12 +1,13 @@
-import { useEffect } from "react";
-import "./Rockets.css";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import {
   cancelReservation,
   reserveRocket,
   setRockets,
 } from "../../redux/rockets/rocketSlice";
-import axios from "axios";
+import backgroundImage from "../../assets/images/backround.jpg";
+import "./Rockets.css";
 
 const Rockets = () => {
   const rockets = useSelector((state) => state.rockets);
@@ -25,44 +26,61 @@ const Rockets = () => {
     }
   }, [dispatch, rockets]);
 
+  const memoizedDispatch = useMemo(() => dispatch, [dispatch]);
+
   return (
-    <div className="rockets-container">
-      {rockets?.map((rocket) => (
-        <div className="rocket-item" key={rocket.id}>
-          <img
-            className="rocket-image"
-            src={rocket.flickr_images[0]}
-            alt={rocket.rocket_name}
-          />
-          <div className="rocket-details">
-            <h2 className="rocket-name">{rocket.rocket_name}</h2>
-            <p className="rocket-description">{rocket.description}</p>
-            <div className="rocket-status">
-              <span
-                className={`status ${
-                  rocket.reserved ? "reserved" : "available"
-                }`}
-              >
-                {rocket.reserved ? "Reserved" : "Available"}
-              </span>
-              <button
-                className={`rocket-btn ${
-                  rocket.reserved ? "cancel-btn" : "reserve-btn"
-                }`}
-                onClick={() => {
-                  if (rocket.reserved) {
-                    dispatch(cancelReservation({ id: rocket.id }));
-                  } else {
-                    dispatch(reserveRocket({ id: rocket.id }));
-                  }
-                }}
-              >
-                {rocket.reserved ? "Cancel Reservation" : "Reserve Rocket"}
-              </button>
-            </div>
-          </div>
+    <div style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <div className="rockets-container">
+        {rockets ? (
+          rockets.map((rocket) => (
+            <RocketItem
+              key={rocket.id}
+              rocket={rocket}
+              dispatch={memoizedDispatch}
+            />
+          ))
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const RocketItem = ({ rocket, dispatch }) => {
+  const reserve = () => dispatch(reserveRocket({ id: rocket.id }));
+  const handleCancelReservation = () =>
+    dispatch(cancelReservation({ id: rocket.id }));
+
+  return (
+    <div className="rocket-item">
+      <div className="rocket-status">
+        <span
+          className={`status ${rocket.reserved ? "reserved" : "available"}`}
+        >
+          {rocket.reserved ? "Reserved" : "Available"}
+        </span>
+      </div>
+      <img
+        className="rocket-image"
+        src={rocket.flickr_images[0]}
+        alt={rocket.rocket_name}
+      />
+      <div className="rocket-details">
+        <h2 className="rocket-name">{rocket.rocket_name}</h2>
+        <p className="rocket-description">{rocket.description}</p>
+        <div className="rocket-buttons">
+          <button className="rocket-btn reserve-btn" onClick={reserve}>
+            Reserve Rocket
+          </button>
+          <button
+            className="rocket-btn cancel-btn"
+            onClick={handleCancelReservation}
+          >
+            Cancel Reservation
+          </button>
         </div>
-      ))}
+      </div>
     </div>
   );
 };

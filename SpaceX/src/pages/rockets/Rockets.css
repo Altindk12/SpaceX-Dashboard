@@ -1,6 +1,5 @@
-/* Rockets.css */
-
 .rockets-container {
+  position: relative;
   width: 90%;
   margin: 110px auto;
   display: grid;
@@ -13,6 +12,8 @@
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease;
+  background-color: #fff;
+  position: relative;
 }
 
 .rocket-image {
@@ -24,12 +25,13 @@
 }
 
 .rocket-details {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
-  background-color: #f9f9f9;
 }
 
 .rocket-name {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   margin-bottom: 10px;
   color: #333;
@@ -37,54 +39,78 @@
 
 .rocket-description {
   font-size: 16px;
-  margin-bottom: 15px;
+  margin-bottom: 100px;
   color: #666;
 }
 
-.rocket-status {
+.rocket-buttons {
   display: flex;
-  align-items: center;
-  justify-content: space-between; /* Align items horizontally */
-}
-
-.status {
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  margin-right: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.status.reserved {
-  background-color: #ff4444;
-  color: #fff;
-}
-
-.status.available {
-  background-color: #4caf50;
-  color: #fff;
 }
 
 .rocket-btn {
-  padding: 20px 20px;
+  flex: 1;
+  margin-right: 10px;
+  padding: 14px 24px;
   border: none;
   cursor: pointer;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 24px;
   transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .reserve-btn {
-  background-color: #4caf50;
+  background-color: #339933;
   color: #fff;
 }
 
 .cancel-btn {
-  background-color: #ff4444;
+  background-color: #cc3333;
   color: #fff;
 }
 
 .rocket-btn:hover {
   background-color: #333;
+  color: #fff;
+}
+
+.status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status.reserved {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+.status.available {
+  background-color: #66cc66;
+  color: #fff;
+}
+.rocket-item {
+  position: relative; /* Added relative positioning */
+}
+
+.rocket-buttons {
+  position: absolute;
+  bottom: 5px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  width: 80%; /* Adjust as needed */
+  justify-content: space-between;
+}
+body {
+  min-height: 100px; /* Set minimum height of the body to cover the entire viewport */
+  background-image: url("../assets/images/backround.jpg");
+  background-size: cover; /* Adjusts the background image size to cover the entire body */
+  background-position: center; /* Centers the background image */
 }
