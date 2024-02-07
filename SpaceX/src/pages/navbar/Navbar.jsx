@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import hamburgerIcon from "../../assets/images/hamburger menu.svg"; // Import the hamburger menu icon
 
 import "./Navbar.css";
 
@@ -18,9 +19,11 @@ const Navbar = () => {
           <img src={logo} alt="Logo" />
         </div>
 
+        {/* Updated button element with hamburger menu icon */}
         <button type="button" onClick={handleMenuOpen} className="menu-btn">
-          {isMenuOpen ? "Close" : "Menu"}
+          <img src={hamburgerIcon} alt="Menu" />
         </button>
+
         <ul className={isMenuOpen ? "open" : ""}>
           <li>
             <NavLink to="/" onClick={handleMenuOpen}>
