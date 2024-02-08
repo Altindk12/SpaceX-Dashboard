@@ -1,0 +1,86 @@
+.my-profile-container {
+  width: 100%;
+  padding: 130px 0;
+  background: #003366;
+
+  color: #333;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.section {
+  width: 40%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 24px;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(to right, #3498db, #9b59b6);
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+}
+
+.content {
+  padding: 20px;
+}
+
+.rocket-list,
+.mission-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.rocket,
+.mission {
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.rocket:last-child,
+.mission:last-child {
+  border-bottom: none;
+}
+
+.rocket-name,
+.mission-name {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+.rocket-animation {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: none;
+  color: #fff;
+  animation: rocketAnimation 1s infinite;
+}
+
+@keyframes rocketAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.separator {
+  display: none;
+}
