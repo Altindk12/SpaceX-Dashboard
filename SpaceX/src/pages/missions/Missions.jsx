@@ -47,59 +47,53 @@ const Missions = () => {
       <h2 className="missions-heading">Missions</h2>
       <div className="table-box">
         <table className="missions-content">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
           <tbody>
             {missions?.map((mission) => (
               <tr key={mission.mission_id}>
-                <td>{mission.mission_id}</td>
-                <td>{mission.mission_name}</td>
-                <td className="mission-desc">
-                  {expandedMissions.includes(mission.mission_id)
-                    ? mission.description
-                    : mission.description.slice(0, 100) + "... "}
-                  <button
-                    type="button"
-                    className="read-more-btn"
-                    onClick={() => handleToggleDescription(mission.mission_id)}
-                  >
-                    {expandedMissions.includes(mission.mission_id)
-                      ? "Read less"
-                      : "Read more"}
-                  </button>
-                </td>
-                <td className="action-buttons">
-                  <button
-                    type="button"
-                    className="btn join-btn"
-                    onClick={() => handleJoinMission(mission.mission_id)}
-                    style={{
-                      display: mission.reserved ? "none" : "inline-block",
-                    }}
-                  >
-                    Join Mission
-                  </button>
-                  <button
-                    type="button"
-                    className="btn leave-btn"
-                    onClick={() => handleLeaveMission(mission.mission_id)}
-                    style={{
-                      display: mission.reserved ? "inline-block" : "none",
-                    }}
-                  >
-                    Leave Mission
-                  </button>
-                  <span
-                    className={`member ${mission.reserved ? "active" : ""}`}
-                  >
-                    {mission.reserved ? "Active Member" : "Not a Member"}
-                  </span>
+                <td className="mission-row">
+                  <div className="mission-details">
+                    <div className="mission-id">ID: {mission.mission_id}</div>
+                    <div className="mission-name">Name: {mission.mission_name}</div>
+                    <div className="mission-desc">
+                      {expandedMissions.includes(mission.mission_id)
+                        ? mission.description
+                        : mission.description.slice(0, 100) + "... "}
+                    </div>
+                    <button
+                      type="button"
+                      className="read-more-btn"
+                      onClick={() => handleToggleDescription(mission.mission_id)}
+                    >
+                      {expandedMissions.includes(mission.mission_id)
+                        ? "Read less"
+                        : "Read more"}
+                    </button>
+                    <div className="action-buttons">
+                      <button
+                        type="button"
+                        className="btn join-btn"
+                        onClick={() => handleJoinMission(mission.mission_id)}
+                        style={{
+                          display: mission.reserved ? "none" : "inline-block",
+                        }}
+                      >
+                        Join Mission
+                      </button>
+                      <button
+                        type="button"
+                        className="btn leave-btn"
+                        onClick={() => handleLeaveMission(mission.mission_id)}
+                        style={{
+                          display: mission.reserved ? "inline-block" : "none",
+                        }}
+                      >
+                        Leave Mission
+                      </button>
+                      <span className={`member ${mission.reserved ? "active" : ""}`}>
+                        {mission.reserved ? "Active Member" : "Not a Member"}
+                      </span>
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))}

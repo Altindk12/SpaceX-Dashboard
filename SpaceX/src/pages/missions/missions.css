@@ -28,11 +28,24 @@
   text-align: left;
 }
 
+.mission-details {
+  display: flex;
+  flex-direction: column;
+}
+
 .mission-desc {
-  max-width: 5000px;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre-wrap; /* Allow line breaks */
+  width: 100%; /* Expand to full width */
+}
+
+.read-more-btn {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: blue;
+  align-self: flex-end; /* Button aligns to the end of the flex container */
 }
 
 .action-buttons {
@@ -66,4 +79,13 @@
 
 .active {
   color: green;
+}
+body {
+  min-height: 100px;
+  margin: 0; 
+  padding: 0; 
+  background-image: url("../assets/images/space-theme.jpg");
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
 }
