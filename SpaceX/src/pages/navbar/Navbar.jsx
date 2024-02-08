@@ -1,15 +1,18 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import hamburgerIcon from "../../assets/images/hamburger menu.svg"; // Import the hamburger menu icon
-
-import "./Navbar.css";
+import hamburgerIcon from "../../assets/images/hamburger menu.svg";
+import "../../Cssfiles/Navbar.css";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleMenuOpen = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => {
+    setIsMenuOpen((prevState) => !prevState);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
@@ -18,25 +21,22 @@ const Navbar = () => {
         <div className="logo">
           <img src={logo} alt="Logo" />
         </div>
-
-        {/* Updated button element with hamburger menu icon */}
-        <button type="button" onClick={handleMenuOpen} className="menu-btn">
+        <button type="button" onClick={toggleMenu} className="menu-btn">
           <img src={hamburgerIcon} alt="Menu" />
         </button>
-
         <ul className={isMenuOpen ? "open" : ""}>
           <li>
-            <NavLink to="/" onClick={handleMenuOpen}>
+            <NavLink to="/" onClick={closeMenu}>
               Rockets
             </NavLink>
           </li>
           <li>
-            <NavLink to="/missions" onClick={handleMenuOpen}>
+            <NavLink to="/missions" onClick={closeMenu}>
               Missions
             </NavLink>
           </li>
           <li>
-            <NavLink to="/my-profile" onClick={handleMenuOpen}>
+            <NavLink to="/my-profile" onClick={closeMenu}>
               My Profile
             </NavLink>
           </li>

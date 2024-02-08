@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
@@ -7,47 +7,49 @@ import {
   setRockets,
 } from "../../redux/rockets/rocketSlice";
 import backgroundImage from "../../assets/images/backround.jpg";
-import "./Rockets.css";
+import "../../Cssfiles/Rockets.css";
 
 const Rockets = () => {
   const rockets = useSelector((state) => state.rockets);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!rockets || rockets.length === 0) {
-      axios
-        .get("https://api.spacexdata.com/v3/rockets")
-        .then((response) => {
+    const fetchRockets = async () => {
+      try {
+        if (!rockets || rockets.length === 0) {
+          const response = await axios.get(
+            "https://api.spacexdata.com/v3/rockets"
+          );
           dispatch(setRockets(response.data));
-        })
-        .catch((error) => {
-          console.error("Error fetching rockets:", error);
-        });
-    }
+        }
+      } catch (error) {
+        console.error("Error fetching rockets:", error);
+      }
+    };
+
+    fetchRockets();
   }, [dispatch, rockets]);
 
-  const memoizedDispatch = useMemo(() => dispatch, [dispatch]);
+  const renderRocketItems = () => {
+    if (!rockets) {
+      return <div>Loading...</div>;
+    }
+
+    return rockets.map((rocket) => (
+      <RocketItem key={rocket.id} rocket={rocket} />
+    ));
+  };
 
   return (
     <div style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <div className="rockets-container">
-        {rockets ? (
-          rockets.map((rocket) => (
-            <RocketItem
-              key={rocket.id}
-              rocket={rocket}
-              dispatch={memoizedDispatch}
-            />
-          ))
-        ) : (
-          <div>Loading...</div>
-        )}
-      </div>
+      <div className="rockets-container">{renderRocketItems()}</div>
     </div>
   );
 };
 
-const RocketItem = ({ rocket, dispatch }) => {
+const RocketItem = ({ rocket }) => {
+  const dispatch = useDispatch();
+
   const reserve = () => dispatch(reserveRocket({ id: rocket.id }));
   const handleCancelReservation = () =>
     dispatch(cancelReservation({ id: rocket.id }));

@@ -108,9 +108,3 @@
   width: 80%; /* Adjust as needed */
   justify-content: space-between;
 }
-body {
-  min-height: 100px; /* Set minimum height of the body to cover the entire viewport */
-  background-image: url("../assets/images/backround.jpg");
-  background-size: cover; /* Adjusts the background image size to cover the entire body */
-  background-position: center; /* Centers the background image */
-}

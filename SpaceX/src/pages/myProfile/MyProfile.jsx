@@ -1,10 +1,14 @@
+import React from "react";
 import { useSelector } from "react-redux";
-import "./MyProfile.css";
+import "../../Cssfiles/MyProfile.css";
 
 const MyProfile = () => {
-  const rockets = useSelector((state) => state.rockets);
+  const { rockets, missions } = useSelector((state) => ({
+    rockets: state.rockets,
+    missions: state.missions,
+  }));
+
   const reservedRockets = rockets.filter((rocket) => rocket.reserved);
-  const missions = useSelector((state) => state.missions);
   const joinedMissions = missions.filter((mission) => mission.reserved);
 
   return (
@@ -24,7 +28,12 @@ const MyProfile = () => {
           ) : (
             <p className="no-content-message">
               No rockets reserved!{" "}
-              {"            🡠Reserve  a rocket if you want to appear here "}
+              <span
+                role="img"
+                aria-label="Reserve a rocket if you want to appear here"
+              >
+                🡠 Reserve a rocket if you want to appear here
+              </span>
             </p>
           )}
         </div>
@@ -42,7 +51,13 @@ const MyProfile = () => {
             </div>
           ) : (
             <p className="no-content-message">
-              No missions joined!{"🡠Join a mission  if you want to appear here"}
+              No missions joined!{" "}
+              <span
+                role="img"
+                aria-label="Join a mission if you want to appear here"
+              >
+                🡠 Join a mission if you want to appear here
+              </span>
             </p>
           )}
         </div>
