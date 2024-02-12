@@ -50,9 +50,13 @@ const Rockets = () => {
 const RocketItem = ({ rocket }) => {
   const dispatch = useDispatch();
 
-  const reserve = () => dispatch(reserveRocket({ id: rocket.id }));
-  const handleCancelReservation = () =>
-    dispatch(cancelReservation({ id: rocket.id }));
+  const toggleReservation = () => {
+    if (rocket.reserved) {
+      dispatch(cancelReservation({ id: rocket.id }));
+    } else {
+      dispatch(reserveRocket({ id: rocket.id }));
+    }
+  };
 
   return (
     <div className="rocket-item">
@@ -72,14 +76,8 @@ const RocketItem = ({ rocket }) => {
         <h2 className="rocket-name">{rocket.rocket_name}</h2>
         <p className="rocket-description">{rocket.description}</p>
         <div className="rocket-buttons">
-          <button className="rocket-btn reserve-btn" onClick={reserve}>
-            Reserve Rocket
-          </button>
-          <button
-            className="rocket-btn cancel-btn"
-            onClick={handleCancelReservation}
-          >
-            Cancel Reservation
+          <button className="rocket-btn" onClick={toggleReservation}>
+            {rocket.reserved ? "Cancel Reservation" : "Reserve Rocket"}
           </button>
         </div>
       </div>
